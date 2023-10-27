@@ -2,7 +2,7 @@
 import flwr as fl
 import utils 
 import torch
-import model
+import models
 
 from collections import OrderedDict
 import flwr as fl
@@ -95,9 +95,9 @@ def fit_config(server_round: int):
 
 
 Strategy = fl.server.strategy.FedAvgM(
-        min_fit_clients=9,
-        min_evaluate_clients=10,
-        min_available_clients=10,
+        min_fit_clients=5,
+        min_evaluate_clients=6,
+        min_available_clients=6,
         evaluate_fn=get_evaluate_fn_pfedme(testset,training_history_acc_cent, training_history_loss_cent),#centralised evaluation of global model
         fit_metrics_aggregation_fn=agg_metrics_train_pfedme(training_history_acc_dist),
         evaluate_metrics_aggregation_fn=weighted_average_pfedme(training_history_acc_dist),

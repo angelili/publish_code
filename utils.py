@@ -152,6 +152,8 @@ def power_law_split(
 
 
 trainset, testset = download_data()
+sorted_dataset=sort_by_class(trainset)
+partitions=power_law_split(sorted_trainset=sorted_dataset,num_partitions=1000)
 
 def load_datasets(  # pylint: disable=too-many-arguments
     num_clients: int,
