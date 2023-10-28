@@ -28,12 +28,7 @@ def main():
         batch_size=batch_size,
     )
     # prepare function that will be used to spawn each client
-    client_fn = client.gen_client_fn(
-
-        trainloaders=trainloaders,
-        testloaders=testloaders
-
-    )
+    client_fn = client.generate_client_fn(trainloaders, testloaders)
 
 
     if pFedMe==True:
