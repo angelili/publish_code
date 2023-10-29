@@ -57,7 +57,7 @@ class FlowerClient(fl.client.NumPyClient):
                     param = global_param
             loss_local, accuracy_local = models.test(model=self.model, testloader=self.testloader, device=self.device)
             
-            return self.get_parameters(self.model), len(self.testloader), {"accuracy_local": float(accuracy_local),"accuracy_person": float(accuracy_person)}
+            return self.get_parameters(self.model), len(self.testloader.dataset), {"accuracy_local": float(accuracy_local),"accuracy_person": float(accuracy_person)}
         else:
             local_epochs: int = config['local_epochs']
             lr: float = config["learning_rate"]
@@ -67,7 +67,7 @@ class FlowerClient(fl.client.NumPyClient):
             models.train_fedavg(model=self.model, trainloader=self.trainloader, local_epochs=local_epochs, device=self.device, lr=lr)
             loss_local, accuracy_local = models.test(model=self.model, testloader=self.testloader, device=self.device)
             
-            return self.get_parameters(self.model), len(self.testloader), {"accuracy_local": float(accuracy_local)}
+            return self.get_parameters(self.model), len(self.testloader.dataset), {"accuracy_local": float(accuracy_local)}
             
     def evaluate(
         self, parameters: List[np.ndarray], config: Dict[str, str]
